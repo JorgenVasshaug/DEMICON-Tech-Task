@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.vasshaug.demicontt.entity.Results;
+import org.vasshaug.demicontt.entity.Result;
 
 @RestController
 public class DemiconTTRestController {
@@ -48,11 +48,11 @@ public class DemiconTTRestController {
 
     // Fetch results from randomuser and convert to POJOs using the Jackson library
     @GetMapping("/")
-    public Results getResults() {
+    public Result getResults() {
         RestTemplate restTemplate = new RestTemplate();
         String url = this.url + "&results=" + this.userSize;
         logger.error("Url = " + url);
-        Results output = restTemplate.getForObject(url, Results.class);
+        Result output = restTemplate.getForObject(url, Result.class);
 
         /* @TODO convert to expected output format
         { "countries": [
