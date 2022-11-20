@@ -40,7 +40,6 @@ public class JobTask {
         log.info("Results = " + results);
 
         ObjectMapper mapper = new ObjectMapper();
-
     }
 
 }

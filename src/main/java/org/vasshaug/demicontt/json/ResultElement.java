@@ -1,6 +1,8 @@
 package org.vasshaug.demicontt.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.Arrays;
 
 /*
@@ -21,8 +23,14 @@ Contains the results element from randomuser
 "info" element is ignored
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class ResultElement {
 
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    private Long id;
+    @OrderColumn
+    @OneToMany(mappedBy = "result", cascade = CascadeType.ALL)
     private UserElement[] results;
 
     public ResultElement() {
@@ -34,6 +42,19 @@ public class ResultElement {
 
     public void setResults(UserElement[] results) {
         this.results = results;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ResultElement)) return false;
+        ResultElement that = (ResultElement) o;
+        return Arrays.equals(results, that.results);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(results);
     }
 
     @Override

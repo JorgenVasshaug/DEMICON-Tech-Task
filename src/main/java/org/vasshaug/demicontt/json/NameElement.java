@@ -2,6 +2,9 @@ package org.vasshaug.demicontt.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.Embeddable;
+import java.util.Objects;
+
 /* Contains the name element from randomuser
       "name": {
         "title": "Mr",
@@ -10,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
       },
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Embeddable
 public class NameElement {
 
     private String title;
@@ -41,6 +45,19 @@ public class NameElement {
 
     public void setLast(String last) {
         this.last = last;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NameElement)) return false;
+        NameElement that = (NameElement) o;
+        return Objects.equals(title, that.title) && Objects.equals(first, that.first) && Objects.equals(last, that.last);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, first, last);
     }
 
     @Override

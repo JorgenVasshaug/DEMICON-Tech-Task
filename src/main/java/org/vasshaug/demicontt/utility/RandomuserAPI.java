@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.vasshaug.demicontt.json.ResultElement;
+import org.vasshaug.demicontt.json.UserElement;
 
 public class RandomuserAPI {
     private static final Logger logger = LoggerFactory.getLogger(RandomuserAPI.class);

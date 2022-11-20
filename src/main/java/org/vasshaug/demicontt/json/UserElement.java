@@ -2,6 +2,10 @@ package org.vasshaug.demicontt.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.vasshaug.demicontt.entity.Result;
+
+import javax.persistence.*;
+import java.util.Objects;
 
 /*
 Contains the User element from randomuser
@@ -15,7 +19,12 @@ Contains the User element from randomuser
     }
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class UserElement {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Embedded
     private NameElement name;
     private String gender;
 
@@ -23,6 +32,10 @@ public class UserElement {
     @JsonProperty("nat")
     private String location;
     private String email;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "result_id")
+    private ResultElement result;
 
     public UserElement() {
     }
@@ -57,6 +70,27 @@ public class UserElement {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ResultElement getResult() {
+        return result;
+    }
+
+    public void setResult(ResultElement result) {
+        this.result = result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserElement)) return false;
+        UserElement that = (UserElement) o;
+        return Objects.equals(name, that.name) && Objects.equals(gender, that.gender) && Objects.equals(location, that.location) && Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, gender, location, email);
     }
 
     @Override
