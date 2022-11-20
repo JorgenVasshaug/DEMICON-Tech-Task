@@ -16,10 +16,9 @@ public class DemiconTechTaskApplication {
        Refactoring
         - Make RandomuserAPI static with DI values, or move DI into the RandomUserAPI class and remove need for function variables
         - If possible, Combine entity & json classes into one that handles both JPA & JSON
-        - Use @Embeddable to simplify datamodel - https://www.baeldung.com/jpa-embedded-embeddable
         - Use @Data to simplify datamodel - https://projectlombok.org/features/Data
         - Use @AllArgsConstructor to simplify datamodel - https://projectlombok.org/features/constructor
-
+		- jobtask:  previous records before saving into DB
 
      */
 

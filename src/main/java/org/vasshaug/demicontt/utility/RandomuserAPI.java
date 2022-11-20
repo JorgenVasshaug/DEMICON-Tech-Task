@@ -3,7 +3,7 @@ package org.vasshaug.demicontt.utility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
-import org.vasshaug.demicontt.domain.ResultElement;
+import org.vasshaug.demicontt.domain.Result;
 
 public class RandomuserAPI {
     private static final Logger logger = LoggerFactory.getLogger(RandomuserAPI.class);
@@ -15,10 +15,10 @@ public class RandomuserAPI {
         return restTemplate.getForObject(newUrl, String.class);
     }
 
-    public ResultElement getResults(String url, String userSize) {
+    public Result getResults(String url, String userSize) {
         RestTemplate restTemplate = new RestTemplate();
         String newUrl = url + "&results=" + userSize;
         logger.info("Url = " + newUrl);
-        return restTemplate.getForObject(newUrl, ResultElement.class);
+        return restTemplate.getForObject(newUrl, Result.class);
     }
 }

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.vasshaug.demicontt.domain.ResultElement;
+import org.vasshaug.demicontt.domain.Result;
 import org.vasshaug.demicontt.service.ResultsService;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
 
@@ -34,18 +34,19 @@ public class JobTask {
     // To test that Scheduling works
     @Scheduled(fixedRate = 60000)
     public void reportCurrentTime() {
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        log.info("Jobtask running - The time is now {}", dateFormat.format(new Date()));
     }
 
     @Scheduled(fixedRateString = "${jobtask.period.in.milliseconds}")
     public void getAndSaveAPIresults() {
         RandomuserAPI randomuserAPI = new RandomuserAPI();
 
-        ResultElement results = randomuserAPI.getResults(url, userSize);
+        Result results = randomuserAPI.getResults(url, userSize);
         log.info("Results = " + results);
 
         resultsService.save(results);
 
+        log.info("Results saved!");
     }
 
 }

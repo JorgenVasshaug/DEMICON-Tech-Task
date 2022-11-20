@@ -14,13 +14,13 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Embeddable
-public class NameElement {
+public class Name {
 
     private String title;
     private String first;
     private String last;
 
-    public NameElement() {
+    public Name() {
     }
 
     public String getTitle() {
@@ -50,8 +50,8 @@ public class NameElement {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NameElement)) return false;
-        NameElement that = (NameElement) o;
+        if (!(o instanceof Name)) return false;
+        Name that = (Name) o;
         return Objects.equals(title, that.title) && Objects.equals(first, that.first) && Objects.equals(last, that.last);
     }
 

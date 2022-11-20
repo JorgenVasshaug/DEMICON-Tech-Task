@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.vasshaug.demicontt.domain.ResultElement;
+import org.vasshaug.demicontt.domain.Result;
+import org.vasshaug.demicontt.service.ResultsService;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
 
 @RestController
@@ -24,6 +25,11 @@ public class DemiconTTRestController {
 
     @Value("${jobtask.period.in.milliseconds}")
     private String period;
+    private ResultsService resultsService;
+
+    public DemiconTTRestController(ResultsService resultsService) {
+        this.resultsService = resultsService;
+    }
 
     // For testing correct configuration of Service
     @GetMapping("/test")
@@ -46,12 +52,12 @@ public class DemiconTTRestController {
 
     // Fetch results from randomuser and convert to POJOs using the Jackson library
     @GetMapping("/")
-    public ResultElement getResults() {
+    public Result getResults() {
         // Result output = new RandomuserAPI().getResults(url, userSize);
         RestTemplate restTemplate = new RestTemplate();
         String newUrl = url + "&results=" + userSize;
         logger.info("Url = " + newUrl);
-        ResultElement output = restTemplate.getForObject(newUrl, ResultElement.class);
+        Result output = restTemplate.getForObject(newUrl, Result.class);
 
         /* @TODO convert to expected output format
         { "countries": [
@@ -71,5 +77,11 @@ public class DemiconTTRestController {
         return output;
     }
 
-
+    @GetMapping("/db")
+    public Result getDB() {
+        logger.info("Get from DB");
+        Iterable results = resultsService.list();
+        logger.info("Fetched : " + results);
+        return (Result) results.iterator().next();
+    }
 }
