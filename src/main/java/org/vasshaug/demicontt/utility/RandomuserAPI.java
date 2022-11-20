@@ -12,14 +12,14 @@ public class RandomuserAPI {
     public String getRaw(String url, String userSize) {
         RestTemplate restTemplate = new RestTemplate();
         String newUrl = url + "&results=" + userSize;
-        logger.error("Url = " + newUrl);
+        logger.info("Url = " + newUrl);
         return restTemplate.getForObject(newUrl, String.class);
     }
 
     public ResultElement getResults(String url, String userSize) {
         RestTemplate restTemplate = new RestTemplate();
         String newUrl = url + "&results=" + userSize;
-        logger.error("Url = " + newUrl);
+        logger.info("Url = " + newUrl);
         return restTemplate.getForObject(newUrl, ResultElement.class);
     }
 }

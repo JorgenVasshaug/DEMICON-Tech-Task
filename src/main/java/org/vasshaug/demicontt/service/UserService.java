@@ -2,7 +2,7 @@ package org.vasshaug.demicontt.service;
 
 import org.springframework.stereotype.Service;
 import org.vasshaug.demicontt.dao.UserRepository;
-import org.vasshaug.demicontt.entity.User;
+import org.vasshaug.demicontt.json.UserElement;
 
 import java.util.List;
 
@@ -15,15 +15,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Iterable<User> list() {
+    public Iterable<UserElement> list() {
         return userRepository.findAll();
     }
 
-    public User save(User user) {
+    public UserElement save(UserElement user) {
         return userRepository.save(user);
     }
 
-    public void save(List<User> users) {
+    public void save(List<UserElement> users) {
         userRepository.saveAll(users);
     }
 }

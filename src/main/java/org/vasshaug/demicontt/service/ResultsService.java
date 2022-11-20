@@ -2,7 +2,8 @@ package org.vasshaug.demicontt.service;
 
 import org.springframework.stereotype.Service;
 import org.vasshaug.demicontt.dao.ResultsRepository;
-import org.vasshaug.demicontt.entity.Result;
+import org.vasshaug.demicontt.json.ResultElement;
+
 
 import java.util.List;
 
@@ -15,15 +16,15 @@ public class ResultsService {
         this.resultsRepository = resultsRepository;
     }
 
-    public Iterable<Result> list() {
+    public Iterable<ResultElement> list() {
         return resultsRepository.findAll();
     }
 
-    public Result save(Result result) {
+    public ResultElement save(ResultElement result) {
         return resultsRepository.save(result);
     }
 
-    public void save(List<Result> results) {
+    public void save(List<ResultElement> results) {
         resultsRepository.saveAll(results);
     }
 }

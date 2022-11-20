@@ -50,7 +50,7 @@ public class DemiconTTRestController {
         // Result output = new RandomuserAPI().getResults(url, userSize);
         RestTemplate restTemplate = new RestTemplate();
         String newUrl = url + "&results=" + userSize;
-        logger.error("Url = " + newUrl);
+        logger.info("Url = " + newUrl);
         ResultElement output = restTemplate.getForObject(newUrl, ResultElement.class);
 
         /* @TODO convert to expected output format
