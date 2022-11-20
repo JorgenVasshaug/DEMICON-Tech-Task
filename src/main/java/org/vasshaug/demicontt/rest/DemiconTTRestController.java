@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.vasshaug.demicontt.entity.Result;
+import org.vasshaug.demicontt.json.ResultElement;
+import org.vasshaug.demicontt.utility.RandomuserAPI;
 
 @RestController
 public class DemiconTTRestController {
@@ -21,7 +22,7 @@ public class DemiconTTRestController {
     @Value("${randomuser.endpoint.userSize}")
     private String userSize;
 
-    @Value("${randomuser.endpoint.period}")
+    @Value("${jobtask.period.in.milliseconds}")
     private String period;
 
     // For testing correct configuration of Service
@@ -33,10 +34,7 @@ public class DemiconTTRestController {
     // Show raw result fetched from randomuser API
     @GetMapping("/raw")
     public String getRaw() {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = this.url + "&results=" + this.userSize;
-        logger.error("Url = " + url);
-        return restTemplate.getForObject(url, String.class);
+        return new RandomuserAPI().getRaw(url, userSize);
     }
 
     /* Could we replace all this with just the Spring Data Rest dependency ?
@@ -48,11 +46,12 @@ public class DemiconTTRestController {
 
     // Fetch results from randomuser and convert to POJOs using the Jackson library
     @GetMapping("/")
-    public Result getResults() {
+    public ResultElement getResults() {
+        // Result output = new RandomuserAPI().getResults(url, userSize);
         RestTemplate restTemplate = new RestTemplate();
-        String url = this.url + "&results=" + this.userSize;
-        logger.error("Url = " + url);
-        Result output = restTemplate.getForObject(url, Result.class);
+        String newUrl = url + "&results=" + userSize;
+        logger.error("Url = " + newUrl);
+        ResultElement output = restTemplate.getForObject(newUrl, ResultElement.class);
 
         /* @TODO convert to expected output format
         { "countries": [
@@ -71,5 +70,6 @@ public class DemiconTTRestController {
 
         return output;
     }
+
 
 }

@@ -2,12 +2,25 @@ package org.vasshaug.demicontt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class DemiconTechTaskApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemiconTechTaskApplication.class, args);
 	}
+
+	/* @TODO
+       Refactoring
+        - Make RandomuserAPI static with DI values, or move DI into the RandomUserAPI class and remove need for function variables
+        - If possible, Combine entity & json classes into one that handles both JPA & JSON
+        - Use @Embeddable to simplify datamodel - https://www.baeldung.com/jpa-embedded-embeddable
+        - Use @Data to simplify datamodel - https://projectlombok.org/features/Data
+        - Use @AllArgsConstructor to simplify datamodel - https://projectlombok.org/features/constructor
+
+
+     */
 
 }
