@@ -1,4 +1,4 @@
-package org.vasshaug.demicontt.json;
+package org.vasshaug.demicontt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

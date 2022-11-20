@@ -1,4 +1,4 @@
-package org.vasshaug.demicontt.rest;
+package org.vasshaug.demicontt.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.vasshaug.demicontt.json.ResultElement;
+import org.vasshaug.demicontt.domain.ResultElement;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
 
 @RestController

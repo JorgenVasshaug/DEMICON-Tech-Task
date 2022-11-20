@@ -1,8 +1,8 @@
-package org.vasshaug.demicontt.entity;
+package org.vasshaug.demicontt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 /* Contains the name element from randomuser
@@ -13,36 +13,14 @@ import java.util.Objects;
       },
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Entity
-@Table(name="name")
-public class Name {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private Long id;
+@Embeddable
+public class NameElement {
 
-    @Column(name="title")
     private String title;
-    @Column(name="first")
     private String first;
-    @Column(name="last")
     private String last;
 
-    public Name() {
-    }
-
-    public Name(String title, String first, String last) {
-        this.title = title;
-        this.first = first;
-        this.last = last;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public NameElement() {
     }
 
     public String getTitle() {
@@ -72,21 +50,20 @@ public class Name {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Name)) return false;
-        Name name = (Name) o;
-        return Objects.equals(id, name.id) && Objects.equals(title, name.title) && Objects.equals(first, name.first) && Objects.equals(last, name.last);
+        if (!(o instanceof NameElement)) return false;
+        NameElement that = (NameElement) o;
+        return Objects.equals(title, that.title) && Objects.equals(first, that.first) && Objects.equals(last, that.last);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, first, last);
+        return Objects.hash(title, first, last);
     }
 
     @Override
     public String toString() {
         return "Name{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", first='" + first + '\'' +
                 ", last='" + last + '\'' +
                 '}';

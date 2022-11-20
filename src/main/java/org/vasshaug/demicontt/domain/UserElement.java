@@ -1,4 +1,4 @@
-package org.vasshaug.demicontt.entity;
+package org.vasshaug.demicontt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,46 +19,32 @@ Contains the User element from randomuser
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name="randomuser")  //user is a reserved keyword in H2, so using randomuser as table name
-public class User {
+public class UserElement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private Long id;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "name_id")
-    private Name name;
-
-    @Column(name="gender")
+    @Embedded
+    private NameElement name;
     private String gender;
 
     // In the call on the randomuser API we specify that we only want the nationality element from the location structure
     @JsonProperty("nat")
-    @Column(name="location")
     private String location;
-    @Column(name="email")
     private String email;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "result_id")
-    private Result result;
+    private ResultElement result;
 
-    public User() {
+    public UserElement() {
     }
 
-    public User(String gender, String location, String email) {
-        this.gender = gender;
-        this.location = location;
-        this.email = email;
+    public NameElement getName() {
+        return name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(NameElement name) {
+        this.name = name;
     }
 
     public String getGender() {
@@ -85,35 +71,34 @@ public class User {
         this.email = email;
     }
 
-    public Result getResult() {
+    public ResultElement getResult() {
         return result;
     }
 
-    public void setResult(Result result) {
+    public void setResult(ResultElement result) {
         this.result = result;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(gender, user.gender) && Objects.equals(location, user.location) && Objects.equals(email, user.email) && Objects.equals(result, user.result);
+        if (!(o instanceof UserElement)) return false;
+        UserElement that = (UserElement) o;
+        return Objects.equals(name, that.name) && Objects.equals(gender, that.gender) && Objects.equals(location, that.location) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, gender, location, email, result);
+        return Objects.hash(name, gender, location, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", location='" + location + '\'' +
                 ", email='" + email + '\'' +
-                ", result=" + result +
                 '}';
     }
 }

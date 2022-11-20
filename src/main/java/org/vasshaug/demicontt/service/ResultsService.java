@@ -1,8 +1,8 @@
 package org.vasshaug.demicontt.service;
 
 import org.springframework.stereotype.Service;
-import org.vasshaug.demicontt.dao.ResultsRepository;
-import org.vasshaug.demicontt.json.ResultElement;
+import org.vasshaug.demicontt.repository.ResultsRepository;
+import org.vasshaug.demicontt.domain.ResultElement;
 
 
 import java.util.List;

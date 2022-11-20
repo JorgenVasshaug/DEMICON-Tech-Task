@@ -1,15 +1,12 @@
 package org.vasshaug.demicontt.batch;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.sql.OracleJoinFragment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.vasshaug.demicontt.json.ResultElement;
+import org.vasshaug.demicontt.domain.ResultElement;
 import org.vasshaug.demicontt.service.ResultsService;
-import org.vasshaug.demicontt.service.UserService;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
 
 import java.text.SimpleDateFormat;
