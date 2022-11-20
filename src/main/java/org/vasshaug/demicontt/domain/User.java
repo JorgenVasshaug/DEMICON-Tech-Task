@@ -1,5 +1,6 @@
 package org.vasshaug.demicontt.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ Contains the User element from randomuser
 @Table(name="randomuser")  //user is a reserved keyword in H2, so using randomuser as table name
 public class User {
     private static final Logger logger = LoggerFactory.getLogger(User.class);
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,8 +37,8 @@ public class User {
     @JsonProperty("nat")
     private String location;
     private String email;
-
-    @ManyToOne()
+    @JsonIgnore
+    @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "result_id")
     private Result result;
 

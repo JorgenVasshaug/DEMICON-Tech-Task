@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.vasshaug.demicontt.domain.Result;
 import org.vasshaug.demicontt.service.ResultsService;
@@ -43,21 +44,21 @@ public class DemiconTTRestController {
         return new RandomuserAPI().getRaw(url, userSize);
     }
 
-    /* Could we replace all this with just the Spring Data Rest dependency ?
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
-     */
-
     // Fetch results from randomuser and convert to POJOs using the Jackson library
     @GetMapping("/")
     public Result getResults() {
-        // Result output = new RandomuserAPI().getResults(url, userSize);
-        RestTemplate restTemplate = new RestTemplate();
-        String newUrl = url + "&results=" + userSize;
-        logger.info("Url = " + newUrl);
-        Result output = restTemplate.getForObject(newUrl, Result.class);
+        Result output;
+        try {
+            // Fetch data from API
+            output = new RandomuserAPI().getResults(url, userSize);
+        } catch ( RestClientException e) {
+            // @TODO VERIFY THAT THIS WORKS
+            // In case of an unsuccessful synchronization attempt, return data from the last successful synchronization
+            logger.info("Get from DB");
+            Iterable results = resultsService.list();
+            logger.info("Fetched : " + results);
+            output = (Result) results.iterator().next();
+        }
 
         /* @TODO convert to expected output format
         { "countries": [
@@ -71,8 +72,6 @@ public class DemiconTTRestController {
             }
          ]}
          */
-
-        // @TODO In case of an unsuccessful synchronization attempt, return data from the last successful synchronization
 
         return output;
     }

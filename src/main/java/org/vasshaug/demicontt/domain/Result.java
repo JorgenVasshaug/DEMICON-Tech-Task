@@ -1,5 +1,6 @@
 package org.vasshaug.demicontt.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ Contains the results element from randomuser
 @Entity
 public class Result {
     private static final Logger logger = LoggerFactory.getLogger(Result.class);
+    @JsonIgnore
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;

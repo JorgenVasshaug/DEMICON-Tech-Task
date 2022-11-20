@@ -19,6 +19,11 @@ public class DemiconTechTaskApplication {
         - Use @Data to simplify datamodel - https://projectlombok.org/features/Data
         - Use @AllArgsConstructor to simplify datamodel - https://projectlombok.org/features/constructor
 		- jobtask:  previous records before saving into DB
+		- Is it possible to replace RestController with just the Spring Data Rest dependency ?
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-rest</artifactId>
+			</dependency>
 
      */
 
