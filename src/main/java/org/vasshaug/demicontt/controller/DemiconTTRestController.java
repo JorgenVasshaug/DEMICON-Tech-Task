@@ -1,5 +1,7 @@
 package org.vasshaug.demicontt.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,8 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 import org.vasshaug.demicontt.domain.Result;
+import org.vasshaug.demicontt.frontenddomain.Country;
 import org.vasshaug.demicontt.service.ResultsService;
+import org.vasshaug.demicontt.utility.FrontEndConverter;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @CrossOrigin()  // To enable FrontEnd to access the BackEnd (adds HTTP Header 'Access-Control-Allow-Origin')
 @RestController
@@ -77,7 +85,7 @@ public class DemiconTTRestController {
         return output;
     }
 
-    @GetMapping("/")
+    @GetMapping("/workaround")
     public String getWorkaround() {
         String response =
                 "{\"countries\": [" +
@@ -101,5 +109,21 @@ public class DemiconTTRestController {
         Iterable results = resultsService.list();
         logger.info("Fetched : " + results);
         return (Result) results.iterator().next();
+    }
+
+    @GetMapping("/")
+    public String convert() {
+        Result output = new RandomuserAPI().getResults(url, userSize);
+        Map<String, Country> response = FrontEndConverter.convertToFrontEnd(output);
+        logger.info("response = " + response);
+        List<Country> list = new ArrayList<Country>(response.values());
+        logger.info("list = " + list);
+        String json = null;
+        try {
+            json = new ObjectMapper().writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            logger.info("" + e);
+        }
+        return "{\"countries\":" + json + "}";
     }
 }
