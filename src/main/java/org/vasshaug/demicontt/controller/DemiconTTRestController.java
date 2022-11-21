@@ -53,51 +53,38 @@ public class DemiconTTRestController {
         return RandomuserAPI.getRaw(url, userSize);
     }
 
-    // Fetch results from randomuser and convert to POJOs using the Jackson library
-    @GetMapping("/main")
-    public Result getResults() {
+    @GetMapping("/")
+    public String getRandomusers() {
         Result output;
+
+        // Get result from API
         try {
-            // Fetch data from API
             output = RandomuserAPI.getResults(url, userSize);
         } catch ( RestClientException e) {
-            // @TODO VERIFY THAT THIS WORKS
             // In case of an unsuccessful synchronization attempt, return data from the last successful synchronization
             logger.info("Get from DB");
             Iterable results = resultsService.list();
             logger.info("Fetched : " + results);
             output = (Result) results.iterator().next();
+            // @TODO VERIFY THAT THIS WORKS
         }
 
-        /* @TODO convert to expected output format
-        { "countries": [
-            {
-              "name": "<country>",
-              "users": [{
-                     "name": "<userName>",
-                     "gender": "<gender>",
-                     "email": "<email>"
-              }]
-            }
-         ]}
-         */
-
-        return output;
-    }
-
-    @GetMapping("/")
-    public String convert() {
-        Result output = new RandomuserAPI().getResults(url, userSize);
+        // Convert response to frontend JSON format
         Map<String, Country> response = FrontEndConverter.convertToFrontEnd(output);
         logger.info("response = " + response);
+
+        // We do not want the MAP key attribute in the response
         List<Country> list = new ArrayList<Country>(response.values());
         logger.info("list = " + list);
+
         String json = null;
+        // Convert to JSON
         try {
             json = new ObjectMapper().writeValueAsString(list);
         } catch (JsonProcessingException e) {
             logger.info("" + e);
         }
+        // Add a countries wrapper on the result
         return "{\"countries\":" + json + "}";
     }
 }
