@@ -3,14 +3,15 @@ package org.vasshaug.demicontt.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 import org.vasshaug.demicontt.domain.Result;
 import org.vasshaug.demicontt.service.ResultsService;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
 
+@CrossOrigin()  // To enable FrontEnd to access the BackEnd (adds HTTP Header 'Access-Control-Allow-Origin')
 @RestController
 public class DemiconTTRestController {
 
@@ -45,7 +46,8 @@ public class DemiconTTRestController {
     }
 
     // Fetch results from randomuser and convert to POJOs using the Jackson library
-    @GetMapping("/")
+
+    @GetMapping("/main")
     public Result getResults() {
         Result output;
         try {
@@ -74,6 +76,22 @@ public class DemiconTTRestController {
          */
 
         return output;
+    }
+
+    @GetMapping("/")
+    public String getWorkaround() {
+        String response =
+                "{\"countries\": [" +
+                " {\"name\": \"DE\", \"users\": [" +
+                "   {\"name\": \"Hans Fried\", \"gender\": \"Male\", \"email\": \"aa@bb.com\"}," +
+                "   {\"name\": \"Eva Braun\", \"gender\": \"Female\", \"email\": \"eva@braun.com\"}" +
+                " ]}," +
+                " {\"name\": \"GB\", \"users\": [" +
+                "   {\"name\": \"Tom Hanks\", \"gender\": \"Male\", \"email\": \"tom.hanks@movies.com\"}" +
+                " ]}" +
+                "]}";
+        logger.info("Response : " + response);
+        return response;
     }
 
     @GetMapping("/db")
