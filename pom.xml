@@ -15,7 +15,7 @@
 	<name>demicon-tech-task</name>
 	<description>Tech Task D3 Cloud: Full-Stack Developer Atlassian</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -51,21 +51,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!--
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<classifier>spring-boot</classifier>
-							<mainClass>
-								org.vasshaug.demicontt.DemiconTechTaskApplication
-							</mainClass>
-						</configuration>
-					</execution>
-				</executions>
-				-->
 			</plugin>
 		</plugins>
 	</build>

@@ -25,13 +25,12 @@ following features:
  ## How to Use
 
 ### Requirements
- - JVM version 17 (8?) 
- - Git
- - npm
- - Maven (?)
+ - JVM version 8 or later 
+ - Git 
+ - npm 
+ - Maven
 
 ### Step 1: Download to local repository using Git
- - You must have git installed
  - Go to the folder where you want to download the project
  - Type
    - git clone https://github.com/JorgenVasshaug/DEMICON-Tech-Task
@@ -41,15 +40,14 @@ following features:
 #### Backend
  - You can either 
    - import code into a project into your favourite IDE, and run the application from there 
-   - execute using maven (Not working - fix)
+   - execute using maven (requires maven cli installed in your shell)
      - Go into root of project/git folder
      - Type
        - mvn spring-boot:run
-     - Requires Maven?
    - execute using jvm
        - Go into root of project/git folder
        - Type
-           - java -jar target (Need to generate jar file)
+           - java -jar target ... (Hey, got no jar file! hmm.... how do I generate jar file??)
 
 #### FrontEnd
  - You need npm installed
