@@ -87,7 +87,9 @@ public class DemiconTTRestController {
                 "   {\"name\": \"Eva Braun\", \"gender\": \"Female\", \"email\": \"eva@braun.com\"}" +
                 " ]}," +
                 " {\"name\": \"GB\", \"users\": [" +
-                "   {\"name\": \"Tom Hanks\", \"gender\": \"Male\", \"email\": \"tom.hanks@movies.com\"}" +
+                "   {\"name\": \"Tom Hanks\", \"gender\": \"Male\", \"email\": \"tom.hanks@movies.com\"}," +
+                "   {\"name\": \"Awesome Dude\", \"gender\": \"Male\", \"email\": \"awesome@dude.com\"}," +
+                "   {\"name\": \"Sweet Chick\", \"gender\": \"Female\", \"email\": \"sweetie@movies.com\"}" +
                 " ]}" +
                 "]}";
         logger.info("Response : " + response);

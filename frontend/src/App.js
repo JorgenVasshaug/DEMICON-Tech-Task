@@ -14,6 +14,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+        console.log("Loading state from Backend");
         fetch('http://localhost:8080/')
             .then((response) => response.json())
             .then((countries) =>
@@ -48,19 +49,27 @@ class App extends Component {
                         )
                     })}
                 </select>
+                &nbsp;&nbsp;
+                <button onClick={(event) => {
+                    console.log("Reload data");
+                    this.componentDidMount();
+                }}>
+                Reload Data
+                </button>
             </div>
             <div>
-            { filteredCountries.map((country) => {
-                return (
-                    <div>
-                         {country.users.map((user) => {
-                            return (
-                            <p>{country.name}, {user.name}, {user.gender}, {user.email}</p>
-                            )
-                         })}
-                    </div>
-                );
-            })}
+                // Render datalist
+                { filteredCountries.map((country) => {
+                    return (
+                        <div>
+                             {country.users.map((user) => {
+                                return (
+                                <p>{country.name}, {user.name}, {user.gender}, {user.email}</p>
+                                )
+                             })}
+                        </div>
+                    );
+                })}
             </div>
         </div>
       );
