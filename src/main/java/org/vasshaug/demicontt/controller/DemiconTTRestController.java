@@ -50,7 +50,7 @@ public class DemiconTTRestController {
     // Show raw result fetched from randomuser API
     @GetMapping("/raw")
     public String getRaw() {
-        return new RandomuserAPI().getRaw(url, userSize);
+        return RandomuserAPI.getRaw(url, userSize);
     }
 
     // Fetch results from randomuser and convert to POJOs using the Jackson library
@@ -59,7 +59,7 @@ public class DemiconTTRestController {
         Result output;
         try {
             // Fetch data from API
-            output = new RandomuserAPI().getResults(url, userSize);
+            output = RandomuserAPI.getResults(url, userSize);
         } catch ( RestClientException e) {
             // @TODO VERIFY THAT THIS WORKS
             // In case of an unsuccessful synchronization attempt, return data from the last successful synchronization
@@ -83,32 +83,6 @@ public class DemiconTTRestController {
          */
 
         return output;
-    }
-
-    @GetMapping("/workaround")
-    public String getWorkaround() {
-        String response =
-                "{\"countries\": [" +
-                " {\"name\": \"DE\", \"users\": [" +
-                "   {\"name\": \"Hans Fried\", \"gender\": \"Male\", \"email\": \"aa@bb.com\"}," +
-                "   {\"name\": \"Eva Braun\", \"gender\": \"Female\", \"email\": \"eva@braun.com\"}" +
-                " ]}," +
-                " {\"name\": \"GB\", \"users\": [" +
-                "   {\"name\": \"Tom Hanks\", \"gender\": \"Male\", \"email\": \"tom.hanks@movies.com\"}," +
-                "   {\"name\": \"Awesome Dude\", \"gender\": \"Male\", \"email\": \"awesome@dude.com\"}," +
-                "   {\"name\": \"Cool Chick\", \"gender\": \"Female\", \"email\": \"cool@movies.com\"}" +
-                " ]}" +
-                "]}";
-        logger.info("Response : " + response);
-        return response;
-    }
-
-    @GetMapping("/db")
-    public Result getDB() {
-        logger.info("Get from DB");
-        Iterable results = resultsService.list();
-        logger.info("Fetched : " + results);
-        return (Result) results.iterator().next();
     }
 
     @GetMapping("/")

@@ -8,14 +8,14 @@ import org.vasshaug.demicontt.domain.Result;
 public class RandomuserAPI {
     private static final Logger logger = LoggerFactory.getLogger(RandomuserAPI.class);
 
-    public String getRaw(String url, String userSize) {
+    public static String getRaw(String url, String userSize) {
         RestTemplate restTemplate = new RestTemplate();
         String newUrl = url + "&results=" + userSize;
         logger.info("Url = " + newUrl);
         return restTemplate.getForObject(newUrl, String.class);
     }
 
-    public Result getResults(String url, String userSize) {
+    public static Result getResults(String url, String userSize) {
         RestTemplate restTemplate = new RestTemplate();
         String newUrl = url + "&results=" + userSize;
         logger.info("Url = " + newUrl);

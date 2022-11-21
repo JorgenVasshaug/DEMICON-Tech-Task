@@ -18,8 +18,11 @@ public class DemiconTechTaskApplication {
 
        Refactoring
         - Make RandomuserAPI static with DI values, or move DI into the RandomUserAPI class and remove need for function variables
-        - If possible Remove Results from persistence (remember to update that List<User> are returned instead of Result)
+        - If possible remove Results from persistence (remember to update that List<User> are returned instead of Result)
 		- jobtask:  delete previous records before saving into DB
+		- Better handling of possible exceptions
+		- Move js code in app.js to own classes (components)
+		- Add CSS to page
 
 
 		Considerations

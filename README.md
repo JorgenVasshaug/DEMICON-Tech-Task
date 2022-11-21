@@ -47,7 +47,8 @@ following features:
    - execute using jvm
        - Go into root of project/git folder
        - Type
-           - java -jar target ... (Hey, got no jar file! hmm.... how do I generate jar file??)
+         -  mvn clean install
+         -  java -jar target/demicon-tech-task-0.0.1-SNAPSHOT.jar
 
 #### FrontEnd
  - You need npm installed

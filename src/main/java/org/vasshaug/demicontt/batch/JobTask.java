@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.vasshaug.demicontt.domain.Result;
 import org.vasshaug.demicontt.service.ResultsService;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
@@ -39,9 +40,12 @@ public class JobTask {
 
     @Scheduled(fixedRateString = "${jobtask.period.in.milliseconds}")
     public void getAndSaveAPIresults() {
-        RandomuserAPI randomuserAPI = new RandomuserAPI();
-
-        Result results = randomuserAPI.getResults(url, userSize);
+        Result results = null;
+        try {
+            results = RandomuserAPI.getResults(url, userSize);
+        } catch ( RestClientException e) {
+            log.error("" + e);
+        }
         log.info("Results = " + results);
 
         resultsService.save(results);
