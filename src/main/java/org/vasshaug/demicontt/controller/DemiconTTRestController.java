@@ -46,7 +46,6 @@ public class DemiconTTRestController {
     }
 
     // Fetch results from randomuser and convert to POJOs using the Jackson library
-
     @GetMapping("/main")
     public Result getResults() {
         Result output;
