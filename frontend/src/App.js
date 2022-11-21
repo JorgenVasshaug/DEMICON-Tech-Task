@@ -9,6 +9,7 @@ class App extends Component {
 
         this.state = {
             countries: [],
+            comboField: ""
         };
     }
 
@@ -28,21 +29,39 @@ class App extends Component {
     }
 
     render() {
+      const filteredCountries = this.state.countries.filter((country) => {
+        return country.name.includes(this.state.comboField);
+      });
       return (
         <div className="App">
             <h1>Hello there!</h1>
-            { this.state.countries.map((country) => {
+            <div>
+                <select onChange={(event) => {
+                    console.log(event.target.value);
+                    this.setState(() => {
+                        return { comboField: event.target.value};
+                    });
+                }}>
+                    { this.state.countries.map( (country) => {
+                        return (
+                        <option key={country.name} value={country.name}>{country.name}</option>
+                        )
+                    })}
+                </select>
+            </div>
+            <div>
+            { filteredCountries.map((country) => {
                 return (
                     <div>
-                        <p>{country.name}</p>
                          {country.users.map((user) => {
                             return (
-                            <p>{user.name}, {user.gender}, {user.email}</p>
+                            <p>{country.name}, {user.name}, {user.gender}, {user.email}</p>
                             )
                          })}
                     </div>
                 );
             })}
+            </div>
         </div>
       );
     }
