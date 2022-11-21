@@ -35,7 +35,9 @@ public class Result {
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
 
-    @OneToMany(mappedBy = "result", cascade = CascadeType.ALL)
+
+    //@OneToMany(mappedBy = "result", cascade = CascadeType.ALL)  --> Using this it sets up the DB correctly, but foreign key in user table does not get updated with result id value
+    @OneToMany(cascade = CascadeType.ALL)  // --> This actually creates a MANY to MANY DB setup, but at least the data gets setup saved correctly.
     private List<User> results;
 
     public Result() {

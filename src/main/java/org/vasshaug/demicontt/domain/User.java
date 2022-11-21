@@ -39,7 +39,6 @@ public class User {
     private String email;
     @JsonIgnore
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "result_id")
     private Result result;
 
     public User() {
