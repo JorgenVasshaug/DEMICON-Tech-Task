@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 /*
+Doubles as JPA persistence domain model object and JSON object for reading in data from randomuser API
+
 Contains the results element from randomuser
 {
   "results": [
@@ -50,7 +52,6 @@ public class Result {
     public void setResults(List<User> results) {
         this.results = results;
         logger.info("Results.size " + results.size());
-//        results.forEach(  (user) -> user.setResult(this));
     }
 
     public Long getId() {

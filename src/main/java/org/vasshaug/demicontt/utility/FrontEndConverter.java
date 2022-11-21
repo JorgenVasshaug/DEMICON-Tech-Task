@@ -7,6 +7,8 @@ import org.vasshaug.demicontt.frontenddomain.User;
 
 import java.util.*;
 
+// Utility class for converting from randomuser JSON format to FrontEnd JSON format
+// Separated out into own class due to code reuse
 public class FrontEndConverter {
 
     public static Map<String, Country> convertToFrontEnd(Result result) {
@@ -20,6 +22,7 @@ public class FrontEndConverter {
 
         Iterator<org.vasshaug.demicontt.domain.User> userIterator = result.getResults().iterator();
 
+        // Loop through all the results one at a time
         while ( userIterator.hasNext()) {
             user = userIterator.next();
             name = user.getName();
@@ -27,9 +30,11 @@ public class FrontEndConverter {
             userFrontEnd = new User(fullName, user.getGender(), user.getEmail());
 
             if ( countries.containsKey(user.getLocation())) {
+                // If country exists in Map, add user to its list
                 country = countries.get(user.getLocation());
                 country.addUser(userFrontEnd);
             } else {
+                // Country does not exist, create it and add user
                 country = new Country(user.getLocation());
                 country.addUser(userFrontEnd);
                 countries.put(user.getLocation(), country);

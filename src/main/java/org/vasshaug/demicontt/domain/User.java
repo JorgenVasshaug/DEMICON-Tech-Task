@@ -10,6 +10,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /*
+Doubles as JPA persistence domain model object and JSON object for reading in data from randomuser API
+
 Contains the User element from randomuser
 {
       "gender": "male",

@@ -38,6 +38,7 @@ public class JobTask {
         log.info("Jobtask running - The time is now {}", dateFormat.format(new Date()));
     }
 
+    // Fetch randomusers from API and save in DB
     @Scheduled(fixedRateString = "${jobtask.period.in.milliseconds}")
     public void getAndSaveAPIresults() {
         Result results = null;

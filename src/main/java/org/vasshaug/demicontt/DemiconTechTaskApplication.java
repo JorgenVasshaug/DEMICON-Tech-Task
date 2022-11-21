@@ -13,19 +13,17 @@ public class DemiconTechTaskApplication {
 	}
 
 	/* @TODO
-	   - Update instructions on how to generate jar file
 
-
-       Refactoring
+       Refactoring/Improvements
         - Make RandomuserAPI static with DI values, or move DI into the RandomUserAPI class and remove need for function variables
         - If possible remove Results from persistence (remember to update that List<User> are returned instead of Result)
 		- jobtask:  delete previous records before saving into DB
-		- Better handling of possible exceptions
+		- Better handling of possible exceptions throughout code
 		- Move js code in app.js to own classes (components)
-		- Add CSS to page
+		- Add CSS to frontend
 
 
-		Considerations
+		Considerations:
 		- Is it possible to replace RestController with just the Spring Data Rest dependency ?
 			<dependency>
 				<groupId>org.springframework.boot</groupId>

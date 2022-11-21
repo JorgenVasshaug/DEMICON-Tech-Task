@@ -53,6 +53,7 @@ public class DemiconTTRestController {
         return RandomuserAPI.getRaw(url, userSize);
     }
 
+    // Fetch data from randomuser API, in case of error, fetch from DB
     @GetMapping("/")
     public String getRandomusers() {
         Result output;

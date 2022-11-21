@@ -1,16 +1,10 @@
 package org.vasshaug.demicontt.frontenddomain;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-//@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-//@JsonTypeName(value = "student")
 public class Country {
     private String name;
     List<User> users = new ArrayList<User>();

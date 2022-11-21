@@ -5,12 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-/* Contains the name element from randomuser
+/*
+Doubles as JPA persistence domain model object and JSON object for reading in data from randomuser API
+
+Contains the name element from randomuser
       "name": {
         "title": "Mr",
         "first": "Tristan",
         "last": "Bergan"
-      },
+     },
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Embeddable
