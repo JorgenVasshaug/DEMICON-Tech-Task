@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import React from 'react';
 
 import logo from './logo.svg';
 import './App.css';
@@ -8,8 +9,8 @@ class App extends Component {
         super();
 
         this.state = {
-            countries: [],
-            comboField: ""
+            countries: [],  // Original data from backend
+            comboField: ""  // Remembers combobox selection
         };
     }
 
@@ -20,7 +21,7 @@ class App extends Component {
             .then((countries) =>
                 this.setState(
                     () => {
-                        return { countries: countries.countries };
+                        return { countries: countries.countries};
                     },
                     () => {
                         console.log(this.state)
@@ -30,19 +31,22 @@ class App extends Component {
     }
 
     render() {
+      /* keep filtered country list separate so we don't loose data */
       const filteredCountries = this.state.countries.filter((country) => {
         return country.name.includes(this.state.comboField);
       });
       return (
         <div className="App">
-            <h1>Hello there!</h1>
+            <h1>Hello there DEMICON!</h1>
             <div>
+                {/* Combobox for selecting country (nationality) */}
                 <select onChange={(event) => {
                     console.log(event.target.value);
                     this.setState(() => {
                         return { comboField: event.target.value};
                     });
                 }}>
+                    <option selected value="">Select country</option>
                     { this.state.countries.map( (country) => {
                         return (
                         <option key={country.name} value={country.name}>{country.name}</option>
@@ -50,6 +54,7 @@ class App extends Component {
                     })}
                 </select>
                 &nbsp;&nbsp;
+                {/* Button for reloading data */}
                 <button onClick={(event) => {
                     console.log("Reload data");
                     this.componentDidMount();
@@ -58,7 +63,7 @@ class App extends Component {
                 </button>
             </div>
             <div>
-                // Render datalist
+                 {/* Render datalist */}
                 { filteredCountries.map((country) => {
                     return (
                         <div>
@@ -70,6 +75,7 @@ class App extends Component {
                         </div>
                     );
                 })}
+
             </div>
         </div>
       );

@@ -32,7 +32,7 @@ public class JobTask {
     }
 
     // To test that Scheduling works
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 300000)
     public void reportCurrentTime() {
         log.info("Jobtask running - The time is now {}", dateFormat.format(new Date()));
     }
