@@ -53,7 +53,7 @@ following features:
 #### FrontEnd
  - You need npm installed
  - Execute using npm
-     - Go into root of project/git folder
+     - Go into root of project/git folder, and then the subfolder "frontend"
      - Type
          - npm start
 

@@ -21,6 +21,9 @@ public class DemiconTechTaskApplication {
 		- Better handling of possible exceptions throughout code
 		- Move js code in app.js to own classes (components)
 		- Add CSS to frontend
+		- render list using a table
+		- Persist response from randomuser API as String in DB, instead of using domain entities
+		- Rename project to generic name
 
 
 		Considerations:
