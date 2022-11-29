@@ -37,7 +37,7 @@ class App extends Component {
       });
       return (
         <div className="App">
-            <h1>Hello there DEMICON!</h1>
+            <h1>Hello there!</h1>
             <div>
                 {/* Combobox for selecting country (nationality) */}
                 <select onChange={(event) => {
