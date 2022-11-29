@@ -11,6 +11,7 @@ Refactoring/Improvements
 - Make it so that JSON Formatter for Frontend returns also the result element wrapper
 
 
+
 Considerations:
 - Is it possible to replace RestController with just the Spring Data Rest dependency ?
     <dependency>
