@@ -8,12 +8,12 @@
 		<version>2.7.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.vasshaug</groupId>
-	<artifactId>demicon-tech-task</artifactId>
+	<groupId>com.github.jorgenvasshaug</groupId>
+	<artifactId>spring-boot-reactjs_RU</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>demicon-tech-task</name>
-	<description>Tech Task D3 Cloud: Full-Stack Developer Atlassian</description>
+	<name>spring-boot-reactjs_RU</name>
+	<description>Spring Boot with REST controller and React JS Frontend, fetches data from Randomuser API</description>
 	<properties>
 		<java.version>8</java.version>
 	</properties>
