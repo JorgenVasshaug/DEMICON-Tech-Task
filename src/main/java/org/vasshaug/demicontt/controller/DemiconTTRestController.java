@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
+import org.vasshaug.demicontt.domain.RawString;
 import org.vasshaug.demicontt.domain.Result;
 import org.vasshaug.demicontt.frontenddomain.Country;
+import org.vasshaug.demicontt.service.RawStringService;
 import org.vasshaug.demicontt.service.ResultsService;
 import org.vasshaug.demicontt.utility.FrontEndConverter;
+import org.vasshaug.demicontt.utility.JSONConverter;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin()  // To enable FrontEnd to access the BackEnd (adds HTTP Header 'Access-Control-Allow-Origin')
 @RestController
@@ -35,10 +36,12 @@ public class DemiconTTRestController {
 
     @Value("${jobtask.period.in.milliseconds}")
     private String period;
-    private ResultsService resultsService;
+    private final ResultsService resultsService;
+    private final RawStringService rawStringService;
 
-    public DemiconTTRestController(ResultsService resultsService) {
+    public DemiconTTRestController(ResultsService resultsService, RawStringService rawStringService) {
         this.resultsService = resultsService;
+        this.rawStringService = rawStringService;
     }
 
     // For testing correct configuration of Service
@@ -53,6 +56,39 @@ public class DemiconTTRestController {
         return RandomuserAPI.getRaw(url, userSize);
     }
 
+    // Fetch rawString from DB and parse to expected format
+    @GetMapping("/rawString")
+    public String getRawString() {
+        // Fetch the String representation of the Randomuser JSON from DB
+        Iterable<RawString> rawStringIterable = rawStringService.list();
+
+
+        if (rawStringIterable.iterator().hasNext()) {
+            // Found data, parse and then convert to frontend format
+            RawString rawString;
+            rawString = rawStringIterable.iterator().next();
+
+            // Parse from JSON String to JSON POJOS
+            ObjectMapper mapper = new ObjectMapper();
+            Result result;
+            try {
+                result = mapper.readValue(rawString.getRawString(), Result.class);
+            } catch (JsonProcessingException e) {
+                logger.info("" + e);
+                return "";
+            }
+
+            // Convert response to frontend domain structure
+            List<Country> list = FrontEndConverter.convertToFrontEnd(result);
+
+            // Convert to JSON String
+            return JSONConverter.convertFrontEndPOJOtoJSONString(list);
+        } else {
+            // return empty if nothing in DB
+            return "";
+        }
+    }
+
     // Fetch data from randomuser API, in case of error, fetch from DB
     @GetMapping("/")
     public String getRandomusers() {
@@ -64,28 +100,16 @@ public class DemiconTTRestController {
         } catch ( RestClientException e) {
             // In case of an unsuccessful synchronization attempt, return data from the last successful synchronization
             logger.info("Get from DB");
-            Iterable results = resultsService.list();
+            Iterable<Result> results = resultsService.list();
             logger.info("Fetched : " + results);
-            output = (Result) results.iterator().next();
-            // @TODO VERIFY THAT THIS WORKS
+            output = results.iterator().next();
         }
 
-        // Convert response to frontend JSON format
-        Map<String, Country> response = FrontEndConverter.convertToFrontEnd(output);
-        logger.info("response = " + response);
-
-        // We do not want the MAP key attribute in the response
-        List<Country> list = new ArrayList<Country>(response.values());
+        // Convert response to frontend domain structure
+        List<Country> list = FrontEndConverter.convertToFrontEnd(output);
         logger.info("list = " + list);
 
-        String json = null;
-        // Convert to JSON
-        try {
-            json = new ObjectMapper().writeValueAsString(list);
-        } catch (JsonProcessingException e) {
-            logger.info("" + e);
-        }
-        // Add a countries wrapper on the result
-        return "{\"countries\":" + json + "}";
+        // Convert to JSON String
+        return JSONConverter.convertFrontEndPOJOtoJSONString(list);
     }
 }

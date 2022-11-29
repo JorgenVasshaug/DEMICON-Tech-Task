@@ -7,16 +7,17 @@ import org.vasshaug.demicontt.frontenddomain.User;
 
 import java.util.*;
 
-// Utility class for converting from randomuser JSON format to FrontEnd JSON format
-// Separated out into own class due to code reuse
+// Utility class for converting from randomuser JSON POJOs to the expected JSON POJOs
+// Separated out into own class due to separation of concerns
 public class FrontEndConverter {
 
-    public static Map<String, Country> convertToFrontEnd(Result result) {
+    public static List<Country> convertToFrontEnd(Result result) {
         User userFrontEnd;
         org.vasshaug.demicontt.domain.User user;
         Name name;
         String fullName;
         Country country;
+
 
         Map<String, Country> countries = new HashMap<String, Country>();
 
@@ -40,7 +41,11 @@ public class FrontEndConverter {
                 countries.put(user.getLocation(), country);
             }
         }
-        return countries;
+
+        // Return only values from the map, the key is not interesting
+        return new ArrayList<Country>(countries.values());
     }
+
+
 
 }

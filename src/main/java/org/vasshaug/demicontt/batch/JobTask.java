@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
+import org.vasshaug.demicontt.domain.RawString;
 import org.vasshaug.demicontt.domain.Result;
+import org.vasshaug.demicontt.service.RawStringService;
 import org.vasshaug.demicontt.service.ResultsService;
 import org.vasshaug.demicontt.utility.RandomuserAPI;
 
@@ -20,6 +22,7 @@ public class JobTask {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     private ResultsService resultsService;
+    private RawStringService rawStringService;
 
     //inject configuration from application.properties
     @Value("${randomuser.endpoint.url}")
@@ -28,8 +31,9 @@ public class JobTask {
     @Value("${randomuser.endpoint.userSize}")
     private String userSize;
 
-    public JobTask(ResultsService resultsService) {
+    public JobTask(ResultsService resultsService, RawStringService rawStringService) {
         this.resultsService = resultsService;
+        this.rawStringService = rawStringService;
     }
 
     // To test that Scheduling works
@@ -38,7 +42,26 @@ public class JobTask {
         log.info("Jobtask running - The time is now {}", dateFormat.format(new Date()));
     }
 
-    // Fetch randomusers from API and save in DB
+    // Fetch randomusers from API and save in DB as String
+    @Scheduled(fixedRateString = "${jobtask.period.in.milliseconds}")
+    public void getAndSaveAPIrawString() {
+        String rawStringresult = null;
+        try {
+            rawStringresult = RandomuserAPI.getRaw(url, userSize);
+        } catch ( RestClientException e) {
+            log.error("" + e);
+        }
+        log.info("Results = " + rawStringresult);
+
+        RawString rawString = new RawString();
+        rawString.setRawString(rawStringresult);
+
+        rawStringService.save(rawString);
+
+        log.info("Results saved!");
+    }
+
+    // Fetch randomusers from API and save in DB as Objects
     @Scheduled(fixedRateString = "${jobtask.period.in.milliseconds}")
     public void getAndSaveAPIresults() {
         Result results = null;
