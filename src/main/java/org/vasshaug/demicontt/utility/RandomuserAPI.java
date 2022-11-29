@@ -3,7 +3,7 @@ package org.vasshaug.demicontt.utility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
-import org.vasshaug.demicontt.domain.Result;
+import org.vasshaug.demicontt.domain.randomuser.Result;
 
 // Utility class for fetching data from randomuser API
 // Separated out into own class due to code reuse

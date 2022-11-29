@@ -1,4 +1,4 @@
-package org.vasshaug.demicontt.domain;
+package org.vasshaug.demicontt.domain.randomuser;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

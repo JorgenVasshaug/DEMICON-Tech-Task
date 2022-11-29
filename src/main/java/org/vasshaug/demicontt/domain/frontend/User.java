@@ -1,4 +1,4 @@
-package org.vasshaug.demicontt.frontenddomain;
+package org.vasshaug.demicontt.domain.frontend;
 
 public class User {
     private String name;

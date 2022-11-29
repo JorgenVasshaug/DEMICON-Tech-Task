@@ -1,9 +1,9 @@
 package org.vasshaug.demicontt.utility;
 
-import org.vasshaug.demicontt.domain.Name;
-import org.vasshaug.demicontt.domain.Result;
-import org.vasshaug.demicontt.frontenddomain.Country;
-import org.vasshaug.demicontt.frontenddomain.User;
+import org.vasshaug.demicontt.domain.randomuser.Name;
+import org.vasshaug.demicontt.domain.randomuser.Result;
+import org.vasshaug.demicontt.domain.frontend.Country;
+import org.vasshaug.demicontt.domain.frontend.User;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ public class FrontEndConverter {
 
     public static List<Country> convertToFrontEnd(Result result) {
         User userFrontEnd;
-        org.vasshaug.demicontt.domain.User user;
+        org.vasshaug.demicontt.domain.randomuser.User user;
         Name name;
         String fullName;
         Country country;
@@ -21,7 +21,7 @@ public class FrontEndConverter {
 
         Map<String, Country> countries = new HashMap<String, Country>();
 
-        Iterator<org.vasshaug.demicontt.domain.User> userIterator = result.getResults().iterator();
+        Iterator<org.vasshaug.demicontt.domain.randomuser.User> userIterator = result.getResults().iterator();
 
         // Loop through all the results one at a time
         while ( userIterator.hasNext()) {

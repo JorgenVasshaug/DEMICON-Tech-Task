@@ -2,7 +2,7 @@ package org.vasshaug.demicontt.service;
 
 import org.springframework.stereotype.Service;
 import org.vasshaug.demicontt.repository.ResultsRepository;
-import org.vasshaug.demicontt.domain.Result;
+import org.vasshaug.demicontt.domain.randomuser.Result;
 import java.util.List;
 
 @Service

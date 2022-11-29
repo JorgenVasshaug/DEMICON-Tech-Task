@@ -1,7 +1,7 @@
 package org.vasshaug.demicontt.service;
 
 import org.springframework.stereotype.Service;
-import org.vasshaug.demicontt.domain.RawString;
+import org.vasshaug.demicontt.domain.string.RawString;
 import org.vasshaug.demicontt.repository.RawStringRepository;
 
 import java.util.List;

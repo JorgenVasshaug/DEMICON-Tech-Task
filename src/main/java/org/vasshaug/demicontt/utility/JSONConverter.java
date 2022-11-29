@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vasshaug.demicontt.controller.DemiconTTRestController;
-import org.vasshaug.demicontt.frontenddomain.Country;
+import org.vasshaug.demicontt.domain.frontend.Country;
 
 import java.util.List;
 

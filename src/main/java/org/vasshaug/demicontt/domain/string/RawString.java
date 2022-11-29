@@ -1,6 +1,4 @@
-package org.vasshaug.demicontt.domain;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package org.vasshaug.demicontt.domain.string;
 
 import javax.persistence.*;
 import java.util.Objects;

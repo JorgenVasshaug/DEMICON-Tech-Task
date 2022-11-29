@@ -1,4 +1,4 @@
-package org.vasshaug.demicontt.frontenddomain;
+package org.vasshaug.demicontt.domain.frontend;
 
 import java.util.ArrayList;
 import java.util.List;
